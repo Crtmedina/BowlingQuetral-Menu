@@ -1,18 +1,17 @@
 import type { CartaProduct, SectionId } from "./types";
 
-export const HAPPY_HOUR_BANNER_IMAGE =
-  "https://images.unsplash.com/photo-1636144924623-b3aea3c5f16c?q=80&w=1542&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+export { HAPPY_HOUR_BANNER_IMAGE } from "./happy-hour-assets";
 
 export const SECTION_INTROS: Partial<Record<SectionId, string>> = {
   tablas: "Para compartir, todos incluyen papas fritas y tostadas.",
   tacos: "Todas incluyen tortillas de trigo, queso, guacamole y lechuga.",
-  wraps: "Tortilla de 28 cm acompa?adas de salsas de la casa.",
-  quesadillas: "2 quesadillas grandes acompa?adas de guacamole y jalape?o.",
-  nachos: "Porci?n para 2 personas.",
-  completos: "Incluye porci?n de papas fritas.",
-  hamburguesas: "Incluye porci?n de papas fritas. Extra ba?o de queso $2.000.",
+  wraps: "Tortilla de 28 cm acompañadas de salsas de la casa.",
+  quesadillas: "2 quesadillas grandes acompañadas de guacamole y jalapeño.",
+  nachos: "Porción para 2 personas.",
+  completos: "Incluye porción de papas fritas.",
+  hamburguesas: "Incluye porción de papas fritas. Extra baño de queso $2.000.",
   pizzas: "Masa artesanal de la casa, 30 cm. Base de salsa de tomate y queso mozzarella.",
-  sandwiches: "Pan frica acompa?ados con papas fritas. Extra ba?o de queso $2.000.",
+  sandwiches: "Pan frica acompañados con papas fritas. Extra baño de queso $2.000.",
   schopCerveza: "Schop 300 cc y 500 cc. Extra chelada o michelada $1.500.",
   cervezaBotella: "Botella 330 cc. Extra chelada o michelada $1.500.",
 };
@@ -20,57 +19,34 @@ export const SECTION_INTROS: Partial<Record<SectionId, string>> = {
 export const FONDOS_ACOMPANAMIENTOS: CartaProduct[] = [
   {
     name: "PAPAS FRITAS",
-    description: "A elecci?n: 2 acompa?amientos por fondo.",
+    description: "A elección: 2 acompañamientos por fondo.",
     price: "Incluido",
     image:
       "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80&auto=format&fit=crop",
   },
   {
     name: "ENSALADAS VERDES",
-    description: "A elecci?n: 2 acompa?amientos por fondo.",
+    description: "A elección: 2 acompañamientos por fondo.",
     price: "Incluido",
     image:
       "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80&auto=format&fit=crop",
   },
   {
-    name: "PANACH? DE VERDURAS",
-    description: "A elecci?n: 2 acompa?amientos por fondo.",
+    name: "PANACHÉ DE VERDURAS",
+    description: "A elección: 2 acompañamientos por fondo.",
     price: "Incluido",
     image:
       "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80&auto=format&fit=crop",
   },
 ];
 
-export const PAPAS_FRITAS_PEQUES: CartaProduct[] = [
-  {
-    name: "PAPITAS KIDS",
-    description: "Papas fritas, pollo apanado, tomates cherry y palta.",
-    price: "$8.500",
-    image:
-      "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80&auto=format&fit=crop",
-  },
-  {
-    name: "BURGER KIDS",
-    description: "Papas fritas, mini burgers, lechuga y tomates.",
-    price: "$8.500",
-    image:
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80&auto=format&fit=crop",
-  },
-  {
-    name: "SALCHIPAPAS",
-    description: "Papas fritas con salchichas.",
-    price: "$8.000",
-    image:
-      "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=600&q=80&auto=format&fit=crop",
-  },
-];
 export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
   promos: [
     {
       name: "PISCO SOUR",
-      description: "Pisco, lim?n, clara de huevo, amargo",
+      description: "Pisco, limón, clara de huevo, amargo",
       price: "$7.500",
-      deal: "2? $7.500",
+      deal: "2× $7.500",
       image:
         "https://images.unsplash.com/photo-1541546006121-5c3bc5e8c7b9?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
@@ -78,15 +54,15 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
       name: "MOSCOW MULE",
       description: "Vodka, ginger beer, lima, hielo",
       price: "$10.500",
-      deal: "2? $10.500",
+      deal: "2× $10.500",
       image:
         "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&auto=format&fit=crop",
     },
     {
       name: "PISCO SOUR CATEDRAL",
-      description: "Pisco selecci?n, c?tricos, espuma arom?tica",
+      description: "Pisco selección, cítricos, espuma aromática",
       price: "$12.000",
-      deal: "2? $12.000",
+      deal: "2× $12.000",
       image:
         "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400&q=80&auto=format&fit=crop",
     },
@@ -94,7 +70,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
       name: "LONDON MULE",
       description: "Gin, ginger beer, lima, hielo",
       price: "$10.500",
-      deal: "2? $10.500",
+      deal: "2× $10.500",
       image:
         "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=400&q=80&auto=format&fit=crop",
     },
@@ -102,23 +78,23 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
       name: "TEQUILA MARGARITA",
       description: "Tequila, triple sec, lima, sal",
       price: "$9.000",
-      deal: "2? $9.000",
+      deal: "2× $9.000",
       image:
         "https://images.unsplash.com/photo-1666025959723-a9e700cb1023?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       name: "DAIQUIRI TRADICIONAL",
-      description: "Ron blanco, lima, az?car",
+      description: "Ron blanco, lima, azúcar",
       price: "$7.500",
-      deal: "2? $7.500",
+      deal: "2× $7.500",
       image:
         "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400&q=80&auto=format&fit=crop",
     },
     {
-      name: "CAIPIRI?A",
-      description: "Cacha?a, lima, az?car",
+      name: "CAIPIRIÑA",
+      description: "Cachaça, lima, azúcar",
       price: "$7.500",
-      deal: "2? $7.500",
+      deal: "2× $7.500",
       image:
         "https://images.unsplash.com/photo-1644809818228-e29aa5aa8151?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
@@ -126,7 +102,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
       name: "SPLIT SANGRÍA",
       description: "Vino, frutas frescas, toque refrescante",
       price: "$10.500",
-      deal: "2? $10.500",
+      deal: "2× $10.500",
       image:
         "https://images.unsplash.com/photo-1610935591098-9ce2b6d53f66?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
@@ -134,7 +110,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
   tablas: [
     {
       name: "CARAMBOLA DE SABORES",
-      description: "Slices de carne de res a la plancha, camarones apanados y ceviche de salm?n.",
+      description: "Slices de carne de res a la plancha, camarones apanados y ceviche de salmón.",
       price: "$30.000",
       image:
         "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80&auto=format&fit=crop",
@@ -164,7 +140,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     {
       name: "RANCHERA",
       description:
-        "Deliciosas papas fritas con salsa blanca, aros de cebolla, pollo apanado, aj? jalape?o y salsa de la casa.",
+        "Deliciosas papas fritas con salsa blanca, aros de cebolla, pollo apanado, ají jalapeño y salsa de la casa.",
       price: "$17.000",
       image:
         "https://images.unsplash.com/photo-1774074645510-85a5256548cb?q=80&w=1097&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -196,7 +172,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
   wraps: [
     {
       name: "PIN DE POLLO",
-      description: "Pollo a la plancha con champi??n, morr?n rojo y choclo.",
+      description: "Pollo a la plancha con champiñón, morrón rojo y choclo.",
       price: "$9.000",
       image:
         "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80&auto=format&fit=crop",
@@ -209,16 +185,16 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "L?NEA FRESH",
+      name: "LÍNEA FRESH",
       description: "Pollo grillado, lechuga, guacamole y queso cheddar.",
       price: "$10.000",
       image:
         "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "BOLA R?STICA",
+      name: "BOLA RÚSTICA",
       description:
-        "Carne de res a la plancha con tomate cherry, champi?ones y cebolla salteada.",
+        "Carne de res a la plancha con tomate cherry, champiñones y cebolla salteada.",
       price: "$12.000",
       image:
         "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80&auto=format&fit=crop",
@@ -265,21 +241,21 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
   ],
   porciones: [
     {
-      name: "PORCI?N DE POLLO CRISPY",
+      name: "PORCIÓN DE POLLO CRISPY",
       description: "12 Unidades",
       price: "$8.000",
       image:
         "https://images.unsplash.com/photo-1765360024320-b2ab819c6f75?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      name: "PORCI?N AROS DE CEBOLLA",
+      name: "PORCIÓN AROS DE CEBOLLA",
       description: "12 Unidades",
       price: "$7.000",
       image:
         "https://images.unsplash.com/photo-1581966626689-b63d790b3d49?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
-      name: "PORCI?N CAMARONES APANADOS",
+      name: "PORCIÓN CAMARONES APANADOS",
       description: "12 Unidades",
       price: "$10.000",
       image:
@@ -303,7 +279,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     },
     {
       name: "AZTECAS",
-      description: "Papas fritas, carne, chorizo, jalape?o, guacamole.",
+      description: "Papas fritas, carne, chorizo, jalapeño, guacamole.",
       price: "$14.000",
       image:
         "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&q=80&auto=format&fit=crop",
@@ -316,11 +292,34 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "CAMAR?N",
+      name: "CAMARÓN",
       description: "Papas fritas, camarones salteados en crema de queso.",
       price: "$14.000",
       image:
         "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80&auto=format&fit=crop",
+    },
+  ],
+  papasPeques: [
+    {
+      name: "PAPITAS KIDS",
+      description: "Papas fritas, pollo apanado, tomates cherry y palta.",
+      price: "$8.500",
+      image:
+        "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80&auto=format&fit=crop",
+    },
+    {
+      name: "BURGER KIDS",
+      description: "Papas fritas, mini burgers, lechuga y tomates.",
+      price: "$8.500",
+      image:
+        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80&auto=format&fit=crop",
+    },
+    {
+      name: "SALCHIPAPAS",
+      description: "Papas fritas con salchichas.",
+      price: "$8.000",
+      image:
+        "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=600&q=80&auto=format&fit=crop",
     },
   ],
   completos: [
@@ -400,14 +399,14 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
   pizzas: [
     {
       name: "PEPPERONI",
-      description: "Pepperoni y or?gano.",
+      description: "Pepperoni y orégano.",
       price: "$13.000",
       image:
         "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80&auto=format&fit=crop",
     },
     {
       name: "NAPOLITANA",
-      description: "Jam?n, tomate y aceitunas.",
+      description: "Jamón, tomate y aceitunas.",
       price: "$13.000",
       image:
         "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80&auto=format&fit=crop",
@@ -422,28 +421,28 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     },
     {
       name: "VEGETARIANA",
-      description: "Palmitos, morr?n, cebolla morada y choclo.",
+      description: "Palmitos, morrón, cebolla morada y choclo.",
       price: "$12.500",
       image:
         "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80&auto=format&fit=crop",
     },
     {
       name: "DEL MAR",
-      description: "Camarones salteados con ceboll?n, salm?n ahumado y aceitunas.",
+      description: "Camarones salteados con cebollín, salmón ahumado y aceitunas.",
       price: "$17.000",
       image:
         "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80&auto=format&fit=crop",
     },
     {
       name: "DEL CORRAL",
-      description: "Pollo, champi??n y crema.",
+      description: "Pollo, champiñón y crema.",
       price: "$14.000",
       image:
         "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "IB?RICA",
-      description: "Jam?n serrano y tomate cherry.",
+      name: "IBÉRICA",
+      description: "Jamón serrano y tomate cherry.",
       price: "$15.000",
       image:
         "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&q=80&auto=format&fit=crop",
@@ -452,7 +451,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
   fondos: [
     {
       name: "FILETE SALOU",
-      description: "Filete de res en reducci?n de vino tinto.",
+      description: "Filete de res en reducción de vino tinto.",
       price: "$17.500",
       image:
         "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&q=80&auto=format&fit=crop",
@@ -465,8 +464,8 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "SALM?N A LA PLANCHA",
-      description: "Salm?n a la mantequilla con salsa de camarones salteados.",
+      name: "SALMÓN A LA PLANCHA",
+      description: "Salmón a la mantequilla con salsa de camarones salteados.",
       price: "$14.000",
       image:
         "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80&auto=format&fit=crop",
@@ -474,15 +473,15 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     {
       name: "CEVICHE VEGGIE",
       description:
-        "C?trica de la casa, champi??n, palmitos, cebolla morada, morr?n y cilantro.",
+        "Cítrica de la casa, champiñón, palmitos, cebolla morada, morrón y cilantro.",
       price: "$9.000",
       image:
         "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "CEVICHE DE SALM?N",
+      name: "CEVICHE DE SALMÓN",
       description:
-        "Salm?n, c?trica de la casa, cebolla morada, pimientos en brunoise, palta y cilantro.",
+        "Salmón, cítrica de la casa, cebolla morada, pimientos en brunoise, palta y cilantro.",
       price: "$12.000",
       image:
         "https://images.unsplash.com/photo-1535399831216-9a4b7a84e6f0?w=600&q=80&auto=format&fit=crop",
@@ -490,7 +489,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     {
       name: "CEVICHE DE REINETA",
       description:
-        "Reineta, alcaparras, aceite de s?samo, cebolla morada, cilantro y morr?n.",
+        "Reineta, alcaparras, aceite de sésamo, cebolla morada, cilantro y morrón.",
       price: "$10.500",
       image:
         "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=600&q=80&auto=format&fit=crop",
@@ -506,14 +505,14 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     },
     {
       name: "CHACARERO",
-      description: "Carne de res, tomates, porotos verdes y aj? verde.",
+      description: "Carne de res, tomates, porotos verdes y ají verde.",
       price: "$12.000",
       image:
         "https://images.unsplash.com/photo-1551782450-17144efb9c50?w=600&q=80&auto=format&fit=crop",
     },
     {
       name: "BARROS JARPA",
-      description: "Jam?n y queso.",
+      description: "Jamón y queso.",
       price: "$8.000",
       image:
         "https://images.unsplash.com/photo-1553909489-cd47e090f0d7?w=600&q=80&auto=format&fit=crop",
@@ -535,7 +534,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     },
     {
       name: "JUEGO PERFECTO",
-      description: "Carne de res mechada, queso, champi?ones a la mantequilla y palta.",
+      description: "Carne de res mechada, queso, champiñones a la mantequilla y palta.",
       price: "$14.000",
       image:
         "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80&auto=format&fit=crop",
@@ -562,7 +561,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "AVE PIMENT?N",
+      name: "AVE PIMENTÓN",
       description: "Pechuga de pollo y pimientos.",
       price: "$7.000",
       image:
@@ -680,7 +679,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "CAIPIRI?A",
+      name: "CAIPIRIÑA",
       description: "Cachaça, jugo de limón, azúcar.",
       price: "$5.500",
       image:
@@ -791,7 +790,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
     },
     {
       name: "STRIKE 300",
-      description: "Vodka, curaçao blue, pi?a, frambuesa y limón.",
+      description: "Vodka, curaçao blue, piña, frambuesa y limón.",
       price: "$7.500",
       image:
         "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&q=80&auto=format&fit=crop",
@@ -866,7 +865,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1610935591098-9ce2b6d53f66?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "CAIPIRI?A",
+      name: "CAIPIRIÑA",
       description: "Jarra de verano.",
       price: "$24.000",
       image:
@@ -940,7 +939,7 @@ export const PRODUCTS_BY_SECTION: Record<SectionId, CartaProduct[]> = {
         "https://images.unsplash.com/photo-1572442388796-11668a67e4d1?w=600&q=80&auto=format&fit=crop",
     },
     {
-      name: "CORTADO PEQUE?O",
+      name: "CORTADO PEQUEÑO",
       description: "Cortado.",
       price: "$2.700",
       image:

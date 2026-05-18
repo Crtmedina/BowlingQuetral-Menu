@@ -61,6 +61,10 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      screens: {
+        /** Tabla de menú admin: por debajo, cards (columna Acciones ~9.25rem) */
+        "menu-table": "940px",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

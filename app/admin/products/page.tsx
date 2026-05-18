@@ -1,15 +1,29 @@
+import dynamic from "next/dynamic";
+import { AdminPageSkeleton } from "@/components/admin/AdminPageSkeleton";
+import { isDatabaseConnected, listAdminProducts } from "@/lib/queries/menu";
+import { getMenuLayoutForAdmin } from "@/lib/menu/menu-layout";
 import { SITE } from "@/lib/site";
+
+const ProductManager = dynamic(
+  () =>
+    import("@/components/admin/ProductManager").then((m) => ({
+      default: m.ProductManager,
+    })),
+  { loading: () => <AdminPageSkeleton variant="products" /> }
+);
 
 export const metadata = { title: `Productos — ${SITE.name}` };
 
-export default function AdminProductsPage() {
+export default async function AdminProductsPage() {
+  const [connected, products, menuLayout] = await Promise.all([
+    isDatabaseConnected(),
+    listAdminProducts(),
+    getMenuLayoutForAdmin(),
+  ]);
+
   return (
-    <div className="max-w-2xl space-y-2">
-      <h2 className="text-2xl font-semibold tracking-tight">Productos</h2>
-      <p className="text-muted-foreground">
-        Formulario con categoría (dropdown), switches para inicio / Happy Hour 2x1 / agotado, precio
-        normal vs oferta, etiquetas y subida con Cloudinary.
-      </p>
+    <div className="mx-auto max-w-6xl">
+      <ProductManager initialProducts={products} menuLayout={menuLayout} connected={connected} />
     </div>
   );
 }

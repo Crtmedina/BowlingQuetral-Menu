@@ -22,7 +22,7 @@ export type MenuHub = {
 };
 
 export const SECTION_LABELS: Record<SectionId, string> = {
-  promos: "Promos",
+  promos: "Happy Hour",
   tablas: "Tablas",
   tacos: "Tacos",
   wraps: "Wraps",
@@ -30,6 +30,7 @@ export const SECTION_LABELS: Record<SectionId, string> = {
   nachos: "Nachos",
   porciones: "Porciones",
   papasFritas: "Papas fritas",
+  papasPeques: "Para peques",
   completos: "Completos",
   hamburguesas: "Hamburguesas",
   pizzas: "Pizzas",
@@ -51,8 +52,8 @@ export const SECTION_LABELS: Record<SectionId, string> = {
 export const MENU_HUBS: MenuHub[] = [
   {
     id: "promos",
-    label: "PROMOS",
-    suffix: "Happy Hour 2×1",
+    label: "HAPPY HOUR",
+    suffix: "2×1 en tragos seleccionados",
     icon: Sparkles,
     sections: ["promos"],
     menuGroup: "barra",
@@ -78,7 +79,7 @@ export const MENU_HUBS: MenuHub[] = [
     label: "PAPAS FRITAS",
     suffix: "Cargadas · Para peques",
     icon: Flame,
-    sections: ["papasFritas"],
+    sections: ["papasFritas", "papasPeques"],
     menuGroup: "comida",
   },
   {

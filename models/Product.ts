@@ -4,36 +4,28 @@ const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
     description: { type: String, default: "", trim: true },
-    /** Precio de carta (normal) */
-    price: { type: Number, required: true, min: 0 },
-    /** Precio promocional / oferta (opcional) */
-    offerPrice: { type: Number, min: 0 },
+    price: { type: String, required: true, trim: true },
+    deal: { type: String, trim: true },
     imageUrl: { type: String, trim: true },
-    /** false = agotado */
-    stock: { type: Boolean, default: true },
-    /** Etiquetas: Vegano, Picante, Sin gluten, etc. */
-    tags: [{ type: String, trim: true }],
-    categoryId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
+    /** Slug de categoría del menú (bloque → categoría → productos) */
+    sectionId: {
+      type: String,
       required: true,
+      trim: true,
     },
-    /** Orden dentro de la categoría */
     order: { type: Number, default: 0 },
-    /** Carrusel / grid de inicio (novedades + promos imperdibles) */
+    active: { type: Boolean, default: true },
+    tags: [{ type: String, trim: true }],
     showOnHome: { type: Boolean, default: false },
-    /** Destacar como oferta del día en hero */
     isDailyOffer: { type: Boolean, default: false },
-    /** Marca el producto como novedad */
     isNovelty: { type: Boolean, default: false },
-    /** Participa en lógica 2x1 Happy Hour (ver HappyHourSettings) */
     happyHour2x1: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
 
-productSchema.index({ categoryId: 1, order: 1 });
-productSchema.index({ showOnHome: 1, stock: 1 });
+productSchema.index({ sectionId: 1, order: 1, name: 1 });
+productSchema.index({ showOnHome: 1, active: 1 });
 
 export type Product = InferSchemaType<typeof productSchema> & {
   _id: mongoose.Types.ObjectId;

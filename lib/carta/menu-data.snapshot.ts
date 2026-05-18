@@ -3,12 +3,7 @@
  * antes de agrupar en hubs. No usar en la UI: sirve para comparar o revertir.
  */
 import type { SectionId } from "./types";
-import {
-  FONDOS_ACOMPANAMIENTOS,
-  PAPAS_FRITAS_PEQUES,
-  PRODUCTS_BY_SECTION,
-  SECTION_INTROS,
-} from "./products";
+import { FONDOS_ACOMPANAMIENTOS, PRODUCTS_BY_SECTION, SECTION_INTROS } from "./products";
 
 export const SNAPSHOT_CAPTURED_AT = "2026-05-11";
 
@@ -21,6 +16,7 @@ export const FLAT_CATEGORY_NAV: { id: SectionId; label: string }[] = [
   { id: "nachos", label: "NACHOS" },
   { id: "porciones", label: "PORCIONES" },
   { id: "papasFritas", label: "PAPAS FRITAS" },
+  { id: "papasPeques", label: "PARA PEQUES" },
   { id: "completos", label: "COMPLETOS" },
   { id: "hamburguesas", label: "HAMBURGUESAS" },
   { id: "pizzas", label: "PIZZAS" },
@@ -35,5 +31,4 @@ export const FLAT_CATEGORY_NAV: { id: SectionId; label: string }[] = [
 
 export const FLAT_PRODUCTS_BY_SECTION = PRODUCTS_BY_SECTION;
 export const FLAT_SECTION_INTROS = SECTION_INTROS;
-export const FLAT_PAPAS_FRITAS_PEQUES = PAPAS_FRITAS_PEQUES;
 export const FLAT_FONDOS_ACOMPANAMIENTOS = FONDOS_ACOMPANAMIENTOS;

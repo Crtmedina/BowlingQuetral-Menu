@@ -47,6 +47,194 @@
   }
 }
 
+/** Panel admin — dashboard: barra lateral oscura + área principal clara */
+.admin-app-shell {
+  @apply bg-zinc-950;
+}
+
+/**
+ * Tema claro solo dentro del panel (main + diálogos admin).
+ * Los portales de Radix no heredan del <main>; usa .admin-dialog-surface en DialogContent.
+ */
+.admin-main-surface,
+.admin-dialog-surface {
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 43 58% 48%;
+  --primary-foreground: 240 10% 6%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 43 58% 48%;
+  --gold: 43 58% 48%;
+  --gold-foreground: 240 10% 6%;
+  --gold-muted: 43 35% 38%;
+}
+
+.admin-main-surface {
+  --background: 240 5% 96%;
+  @apply flex min-h-screen min-w-0 flex-1 flex-col text-foreground;
+  background-color: hsl(var(--background));
+}
+
+.admin-dialog-surface {
+  --background: 0 0% 100%;
+  @apply border-zinc-200 bg-white text-foreground shadow-2xl;
+  background-color: hsl(var(--background));
+}
+
+.admin-sidebar {
+  box-shadow: inset -1px 0 0 rgb(255 255 255 / 0.06);
+}
+
+.admin-mobile-nav {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (min-width: 940px) {
+  .admin-mobile-nav {
+    display: none;
+  }
+}
+
+.admin-main-with-bottom-nav {
+  padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+}
+@media (min-width: 940px) {
+  .admin-main-with-bottom-nav {
+    padding-bottom: 0;
+  }
+}
+
+.admin-main-content {
+  max-width: 100%;
+}
+
+/**
+ * Menú admin: cards < 940px, tabla ≥ 940px.
+ * Media queries en CSS puro (fiable al redimensionar en DevTools; evita fallos del breakpoint custom de Tailwind).
+ */
+.admin-menu-cards-view {
+  display: block;
+}
+.admin-menu-table-view {
+  display: none;
+  overflow: hidden;
+}
+@media (min-width: 940px) {
+  .admin-menu-cards-view {
+    display: none;
+  }
+  .admin-menu-table-view {
+    display: block;
+  }
+}
+
+/** Productos admin: cards < 940px, tabla ≥ 940px (mismo criterio que menú) */
+.admin-products-cards-view {
+  display: grid;
+}
+.admin-products-table-view {
+  display: none;
+  overflow: hidden;
+}
+@media (min-width: 940px) {
+  .admin-products-cards-view {
+    display: none;
+  }
+  .admin-products-table-view {
+    display: block;
+  }
+}
+
+/** Columna Acciones fija al scroll horizontal en tablas admin */
+.admin-table-sticky-actions {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background-color: hsl(var(--card));
+  box-shadow: -6px 0 10px -4px rgb(0 0 0 / 0.08);
+}
+.admin-table-sticky-actions-header {
+  position: sticky;
+  right: 0;
+  z-index: 11;
+  background-color: hsl(var(--muted) / 0.98);
+  box-shadow: -6px 0 10px -4px rgb(0 0 0 / 0.06);
+}
+tr:hover .admin-table-sticky-actions {
+  background-color: hsl(var(--muted) / 0.35);
+}
+
+/** Drawer del panel */
+.admin-drawer-panel {
+  animation: admin-drawer-in 0.22s ease-out;
+}
+.admin-drawer-backdrop {
+  animation: admin-drawer-fade-in 0.2s ease-out;
+}
+@keyframes admin-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes admin-drawer-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/** Navegación inferior móvil — ítem activo */
+.admin-nav-item-active {
+  position: relative;
+  background-color: hsl(var(--gold) / 0.14);
+  color: hsl(var(--gold));
+  font-weight: 600;
+}
+.admin-nav-item-active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1.75rem;
+  height: 2px;
+  transform: translateX(-50%);
+  border-radius: 9999px;
+  background-color: hsl(var(--gold));
+}
+
+/**
+ * Centra el modal en el viewport visible (móvil con scroll, iOS, barra del navegador).
+ * Evita top:50% + translate, que suele dejar el diálogo “abajo” fuera de pantalla.
+ */
+.dialog-content-centered {
+  inset: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+    max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  margin: auto;
+  max-height: min(90dvh, calc(100dvh - 2rem));
+}
+
+@supports not (height: 100dvh) {
+  .dialog-content-centered {
+    max-height: min(90vh, calc(100vh - 2rem));
+  }
+}
+
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -63,55 +251,73 @@
   }
 
   /**
-   * Premium Dark Quetral — canvas carbón + bolera + halo central suave
+   * Carta — carbón + patrón bolera + viñeta violeta (referencia neón)
    */
   .carta-page-shell {
     @apply text-zinc-100;
-    /* Móvil: altura real del viewport + aire inferior (home indicator / barra) */
     min-height: 100vh;
     min-height: 100dvh;
     padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
-    background-color: #0d0d0d;
-    --carta-bowling-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M22 86 V40 Q22 28 30 22 Q34 18 38 22 Q46 28 46 40 V86' opacity='0.052'/%3E%3Cellipse cx='34' cy='90' rx='10' ry='3' opacity='0.052'/%3E%3Ccircle cx='72' cy='52' r='11' opacity='0.052'/%3E%3Ccircle cx='68' cy='48' r='2.5' fill='%23ffffff' stroke='none' opacity='0.065'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #0a0a0a;
+    --carta-neon: 139 92 246;
+    --carta-neon-deep: 109 40 217;
+    --carta-bowling-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M22 86 V40 Q22 28 30 22 Q34 18 38 22 Q46 28 46 40 V86' opacity='0.055'/%3E%3Cellipse cx='34' cy='90' rx='10' ry='3' opacity='0.055'/%3E%3Ccircle cx='72' cy='52' r='11' opacity='0.055'/%3E%3Ccircle cx='68' cy='48' r='2.5' fill='%23ffffff' stroke='none' opacity='0.07'/%3E%3C/g%3E%3C/svg%3E");
     background-image:
+      linear-gradient(180deg, rgba(10, 10, 12, 0.92) 0%, transparent 18%, transparent 82%, rgba(10, 10, 12, 0.88) 100%),
+      radial-gradient(ellipse 120% 70% at 50% 0%, rgba(109, 40, 217, 0.14) 0%, transparent 52%),
+      radial-gradient(ellipse 90% 55% at 50% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 48%),
       var(--carta-bowling-tile),
-      radial-gradient(
-        circle at 50% 32%,
-        rgba(39, 39, 42, 0.58) 0%,
-        rgba(24, 24, 27, 0.42) 28%,
-        rgba(18, 18, 18, 0.92) 62%,
-        #0a0a0a 100%
-      );
-    background-size: 100px 100px, auto;
-    background-repeat: repeat, no-repeat;
-    background-attachment: scroll, scroll;
+      radial-gradient(circle at 50% 35%, rgba(30, 30, 35, 0.55) 0%, rgba(14, 14, 16, 0.95) 55%, #080809 100%);
+    background-size: auto, auto, auto, 100px 100px, auto;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat, no-repeat;
+    background-attachment: scroll, scroll, scroll, scroll, scroll;
   }
 
-  /** Pantalla completa menú categorías (QR / mockup premium) */
+  /** Pantalla completa menú categorías */
   .carta-menu-dashboard-canvas {
-    background-color: #070708;
-    --carta-menu-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M22 86 V40 Q22 28 30 22 Q34 18 38 22 Q46 28 46 40 V86' opacity='0.04'/%3E%3Cellipse cx='34' cy='90' rx='10' ry='3' opacity='0.04'/%3E%3Ccircle cx='72' cy='52' r='11' opacity='0.04'/%3E%3Ccircle cx='68' cy='48' r='2.5' fill='%23ffffff' stroke='none' opacity='0.05'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #080809;
+    --carta-menu-tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M22 86 V40 Q22 28 30 22 Q34 18 38 22 Q46 28 46 40 V86' opacity='0.045'/%3E%3Cellipse cx='34' cy='90' rx='10' ry='3' opacity='0.045'/%3E%3Ccircle cx='72' cy='52' r='11' opacity='0.045'/%3E%3Ccircle cx='68' cy='48' r='2.5' fill='%23ffffff' stroke='none' opacity='0.06'/%3E%3C/g%3E%3C/svg%3E");
     background-image:
+      radial-gradient(ellipse 100% 55% at 50% 0%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
       var(--carta-menu-tile),
-      radial-gradient(ellipse 100% 80% at 50% 0%, rgba(63, 63, 70, 0.22) 0%, transparent 50%),
-      radial-gradient(circle at 50% 120%, rgba(10, 10, 12, 0.98) 0%, #050506 100%);
-    background-size: 100px 100px, auto, auto;
-    background-repeat: repeat, no-repeat, no-repeat;
+      radial-gradient(circle at 50% 120%, rgba(8, 8, 10, 0.98) 0%, #050506 100%);
+    background-size: auto, 100px 100px, auto;
+    background-repeat: no-repeat, repeat, no-repeat;
   }
 
-  /** Título marca — plateado metálico */
+  /** Título marca carta — blanco sólido + halo violeta suave */
   .carta-brand-silver {
-    background: linear-gradient(
-      180deg,
-      #f4f4f5 0%,
-      #d4d4d8 38%,
-      #a1a1aa 72%,
-      #e4e4e7 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55));
+    color: #ffffff;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 28px rgba(139, 92, 246, 0.22));
+  }
+
+  /** Botón Categorías — cristal + borde claro + glow violeta */
+  .carta-categorias-btn {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fafafa;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+      0 0 0 1px rgba(139, 92, 246, 0.12),
+      0 0 24px -8px rgba(139, 92, 246, 0.45),
+      0 8px 28px -12px rgba(0, 0, 0, 0.55);
+    transition:
+      border-color 0.2s ease,
+      background 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .carta-categorias-btn:hover {
+    border-color: rgba(196, 181, 253, 0.45);
+    background: rgba(255, 255, 255, 0.09);
+    box-shadow:
+      0 0 0 1px rgba(167, 139, 250, 0.25),
+      0 0 32px -6px rgba(139, 92, 246, 0.55),
+      0 10px 32px -10px rgba(0, 0, 0, 0.5);
   }
 
   /** Marca — cobre / ámbar suave hacia zinc claro */
@@ -123,52 +329,75 @@
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
   }
 
-  /**
-   * Marco card: línea dorada homogénea (wireframe metal), ~1px visible en todo el perímetro
-   */
+  /** Marco card — anillo plateado + halo violeta (2px, lee mejor en pantalla) */
   .carta-card-glow-outer {
-    border-radius: 1.5rem;
-    padding: 1px;
+    border-radius: 1.125rem;
+    padding: 2px;
     background: linear-gradient(
-      125deg,
-      rgba(212, 175, 55, 0.62) 0%,
-      rgba(201, 162, 39, 0.55) 22%,
-      rgba(184, 134, 11, 0.58) 48%,
-      rgba(212, 175, 55, 0.56) 72%,
-      rgba(180, 83, 9, 0.52) 100%
+      128deg,
+      rgba(244, 244, 245, 0.55) 0%,
+      rgba(212, 212, 216, 0.38) 14%,
+      rgba(167, 139, 250, 0.65) 32%,
+      rgba(139, 92, 246, 0.5) 50%,
+      rgba(196, 181, 253, 0.45) 68%,
+      rgba(228, 228, 231, 0.42) 86%,
+      rgba(124, 58, 237, 0.55) 100%
     );
     box-shadow:
-      0 25px 50px -12px rgb(0 0 0 / 0.52),
-      0 0 0 1px rgba(212, 175, 55, 0.22),
-      0 0 20px -8px rgba(212, 175, 55, 0.12);
+      0 22px 44px -16px rgb(0 0 0 / 0.65),
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 22px -6px rgba(167, 139, 250, 0.35),
+      0 0 40px -10px rgba(139, 92, 246, 0.42),
+      0 0 56px -14px rgba(91, 33, 182, 0.22);
     transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .carta-card-glow-outer:hover {
     box-shadow:
-      0 25px 50px -12px rgb(0 0 0 / 0.55),
-      0 0 0 1px rgba(244, 208, 63, 0.35),
-      0 0 26px -6px rgba(212, 175, 55, 0.2);
+      0 26px 48px -14px rgb(0 0 0 / 0.68),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 28px -4px rgba(196, 181, 253, 0.42),
+      0 0 48px -8px rgba(139, 92, 246, 0.48),
+      0 0 72px -12px rgba(91, 33, 182, 0.28);
   }
 
-  /** Interior tarjeta — #1a1a1a + volumen matte */
+  /** Interior tarjeta — gris oscuro */
   .carta-card-surface {
-    border-radius: calc(1.5rem - 1px);
-    background: linear-gradient(180deg, #1f1f1f 0%, #1a1a1a 45%, #181818 100%);
-    border: 1px solid rgba(212, 175, 55, 0.14);
+    border-radius: calc(1.125rem - 2px);
+    background: linear-gradient(180deg, #1c1c1f 0%, #161618 48%, #121214 100%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
     box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.055),
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.35);
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.07),
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(139, 92, 246, 0.08);
   }
 
-  /** Precio cards — oro pulido (Archivo sin cambiar) */
+  /** Precio carta — blanco bold (referencia) */
   .carta-price-metallic {
-    background: linear-gradient(180deg, #f4d03f 0%, #e8c468 42%, #c9911d 72%, #b45309 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 14px rgba(244, 208, 63, 0.4))
-      drop-shadow(0 0 28px rgba(180, 83, 9, 0.2));
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: #ffffff;
+    font-weight: 800;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75));
+  }
+
+  .carta-card-glow-outer .carta-price-metallic {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.75));
+  }
+
+  .carta-card-glow-outer:hover .carta-price-metallic {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 14px rgba(167, 139, 250, 0.25));
+  }
+
+  /** Transición foto → texto en cards */
+  .carta-product-image-fade {
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 12, 0.65) 0%,
+      rgba(10, 10, 12, 0.12) 50%,
+      transparent 100%
+    );
   }
 
   /**
@@ -185,33 +414,40 @@
       ),
       linear-gradient(
         90deg,
-        rgba(13, 13, 13, 0.94) 0%,
-        rgba(13, 13, 13, 0.78) 32%,
-        rgba(13, 13, 13, 0.35) 55%,
+        rgba(10, 10, 12, 0.94) 0%,
+        rgba(10, 10, 12, 0.78) 32%,
+        rgba(10, 10, 12, 0.35) 55%,
         transparent 78%
       ),
-      linear-gradient(180deg, rgba(13, 13, 13, 0.25) 0%, transparent 42%, rgba(10, 10, 10, 0.75) 100%),
-      radial-gradient(ellipse 90% 70% at 88% 20%, rgba(212, 175, 55, 0.08), transparent 55%),
-      radial-gradient(ellipse 70% 55% at 20% 100%, rgba(120, 53, 9, 0.12), transparent 50%);
+      linear-gradient(180deg, rgba(10, 10, 12, 0.28) 0%, transparent 42%, rgba(8, 8, 10, 0.78) 100%),
+      radial-gradient(ellipse 90% 70% at 88% 20%, rgba(139, 92, 246, 0.12), transparent 55%),
+      radial-gradient(ellipse 70% 55% at 20% 100%, rgba(91, 33, 182, 0.1), transparent 50%);
   }
 
-  /** Banner "2×1" — oro metálico con relieve */
+  /** Banner "2×1" — blanco + glow violeta */
   .carta-hh-2x1-metallic {
-    background: linear-gradient(185deg, #fff9e6 0%, #f4d03f 28%, #e8c468 55%, #b45309 92%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 24px rgba(244, 208, 63, 0.45))
-      drop-shadow(0 1px 0 rgba(255, 255, 255, 0.2));
+    color: #ffffff;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 28px rgba(167, 139, 250, 0.45))
+      drop-shadow(0 0 48px rgba(109, 40, 217, 0.25));
   }
 
-  /** Tabs activo: alineado al borde dorado de cards */
   .carta-tab-active-bar {
     height: 3px;
     border-radius: 9999px;
-    background: linear-gradient(90deg, #d4af37, #f4d03f, #c9a227, #d4af37);
+    background: linear-gradient(90deg, #a78bfa, #c4b5fd, #8b5cf6, #7c3aed);
     box-shadow:
-      0 0 10px rgba(244, 208, 63, 0.5),
-      0 0 22px rgba(212, 175, 55, 0.28);
+      0 0 12px rgba(167, 139, 250, 0.55),
+      0 0 24px rgba(139, 92, 246, 0.35);
+  }
+
+  /** Chip sección activa — barra violeta */
+  .carta-chip-active-indicator {
+    height: 2px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #a78bfa, #c4b5fd, #8b5cf6, #7c3aed);
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
   }
 }

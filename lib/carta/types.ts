@@ -7,6 +7,7 @@ export type SectionId =
   | "nachos"
   | "porciones"
   | "papasFritas"
+  | "papasPeques"
   | "completos"
   | "hamburguesas"
   | "pizzas"
@@ -36,9 +37,13 @@ export type HubId =
   | "barra";
 
 export type CartaProduct = {
+  /** Presente cuando el producto viene de MongoDB */
+  id?: string;
   name: string;
   description: string;
   price: string;
   deal?: string;
   image: string;
+  /** Badge 2×1 en el bloque Happy Hour cuando viene de la base de datos */
+  happyHour2x1?: boolean;
 };

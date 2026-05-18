@@ -1,4 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bowling Quetral — Menú digital
+
+Carta pública en `/carta`. Panel de administración en `/admin` (requiere login).
+
+## Acceso al panel (desarrollo)
+
+1. Copia `.env.example` → `.env.local` y completa `MONGODB_URI`.
+2. Las credenciales del admin y el `AUTH_SECRET` de este proyecto están en **`ACCESO-ADMIN.local.md`** (archivo local, no va a Git).
+3. Reinicia `npm run dev` y entra en [http://localhost:3000/login](http://localhost:3000/login).
+
+En producción, define `AUTH_SECRET`, `ADMIN_USERNAME` y `ADMIN_PASSWORD` en el hosting (valores distintos a desarrollo).
+
+---
 
 ## Getting Started
 
