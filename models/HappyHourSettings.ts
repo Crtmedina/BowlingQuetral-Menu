@@ -10,7 +10,7 @@ const happyHourSchema = new mongoose.Schema(
     label: { type: String, default: "Happy Hour", trim: true },
     enabled: { type: Boolean, default: false },
     daysOfWeek: [{ type: Number, min: 0, max: 6 }],
-    /** "HH:mm" en zona horaria del local (definir TZ en env si hace falta) */
+    /** "HH:mm" en zona horaria del local (APP_TIMEZONE en env) */
     startTime: { type: String, default: "18:00", trim: true },
     endTime: { type: String, default: "21:00", trim: true },
     /** Texto legal o descripción de la promo (ej. 2x1 en tragos marcados) */

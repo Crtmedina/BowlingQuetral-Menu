@@ -1,3 +1,5 @@
+import { getAppTimeZone } from "@/lib/site-timezone";
+
 /** DTO seguro para cliente y carta (sin ObjectIds). */
 export type HappyHourScheduleDTO = {
   label: string;
@@ -81,7 +83,7 @@ function isMinutesInRange(nowMin: number, startMin: number, endMin: number): boo
 export function isHappyHourActive(
   settings: Pick<HappyHourScheduleDTO, "enabled" | "daysOfWeek" | "startTime" | "endTime">,
   now: Date = new Date(),
-  timeZone = process.env.TZ?.trim() || "America/Santiago"
+  timeZone = getAppTimeZone()
 ): boolean {
   if (!settings.enabled) return false;
   const days = Array.from(new Set(settings.daysOfWeek)).filter((d) => d >= 0 && d <= 6);
@@ -131,7 +133,7 @@ export function getHappyHourPromoStatus(
   timeZone?: string
 ): HappyHourPromoStatus {
   if (!settings.enabled) return "disabled";
-  const tz = timeZone ?? (process.env.TZ?.trim() || "America/Santiago");
+  const tz = timeZone ?? getAppTimeZone();
   if (isHappyHourActive(settings, now, tz)) return "active";
   return "outside_hours";
 }
@@ -141,7 +143,7 @@ export function toHappyHourCartaDTO(
   now: Date = new Date(),
   timeZone?: string
 ): HappyHourCartaDTO {
-  const tz = timeZone ?? (process.env.TZ?.trim() || "America/Santiago");
+  const tz = timeZone ?? getAppTimeZone();
   const isActiveNow = isHappyHourActive(settings, now, tz);
   return {
     ...settings,
