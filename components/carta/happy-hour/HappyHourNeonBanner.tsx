@@ -13,24 +13,12 @@ type HappyHourNeonBannerProps = {
   happyHour: HappyHourCartaDTO;
 };
 
+/** Solo un indicador positivo para el comensal; el estado interno no se muestra en carta. */
 function statusBadge(happyHour: HappyHourCartaDTO) {
-  if (happyHour.promoStatus === "active") {
-    return (
-      <span className="ml-2 inline-flex rounded-full bg-emerald-500/25 px-2 py-0.5 text-[0.65rem] font-bold text-emerald-200">
-        En curso
-      </span>
-    );
-  }
-  if (happyHour.promoStatus === "disabled") {
-    return (
-      <span className="ml-2 inline-flex rounded-full bg-zinc-500/30 px-2 py-0.5 text-[0.65rem] font-bold text-zinc-300">
-        Desactivada
-      </span>
-    );
-  }
+  if (happyHour.promoStatus !== "active") return null;
   return (
-    <span className="ml-2 inline-flex rounded-full bg-amber-500/20 px-2 py-0.5 text-[0.65rem] font-bold text-amber-200">
-      Fuera de horario
+    <span className="ml-2 inline-flex rounded-full bg-emerald-500/25 px-2 py-0.5 text-[0.65rem] font-bold text-emerald-200">
+      En curso
     </span>
   );
 }

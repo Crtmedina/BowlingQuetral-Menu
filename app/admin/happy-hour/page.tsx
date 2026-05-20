@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { HappyHourSettingsForm } from "@/components/admin/HappyHourSettingsForm";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminPageSkeleton } from "@/components/admin/AdminPageSkeleton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { HAPPY_HOUR_CATEGORY_SLUG } from "@/lib/menu/happy-hour";
@@ -10,7 +12,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata = { title: `Happy Hour — ${SITE.name}` };
 
-export default async function AdminHappyHourPage() {
+async function HappyHourPageBody() {
   const connected = await isDatabaseConnected();
   const [settings, hhProducts] = await Promise.all([
     getHappyHourSettings(),
@@ -18,13 +20,7 @@ export default async function AdminHappyHourPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
-      <AdminPageHeader
-        title="Happy Hour"
-        description="Horario global que aparece en el banner de la carta. El bloque 2×1 y los tragos se configuran en Menú y Productos."
-        hint="La carta muestra el horario aunque la promo esté desactivada; «activo» indica si estamos dentro de la franja."
-      />
-
+    <>
       <HappyHourSettingsForm initial={settings} connected={connected} hhProducts={hhProducts} />
 
       <Card>
@@ -50,10 +46,14 @@ export default async function AdminHappyHourPage() {
 
       <div className="flex flex-wrap gap-3">
         <Button asChild variant="gold">
-          <Link href="/admin/menu">Bloques y categorías</Link>
+          <Link href="/admin/menu" prefetch>
+            Bloques y categorías
+          </Link>
         </Button>
         <Button asChild variant="outline">
-          <Link href={`/admin/products?sec=${HAPPY_HOUR_CATEGORY_SLUG}`}>Productos de Happy Hour</Link>
+          <Link href={`/admin/products?sec=${HAPPY_HOUR_CATEGORY_SLUG}`} prefetch>
+            Productos de Happy Hour
+          </Link>
         </Button>
         <Button asChild variant="outline">
           <Link href="/carta" target="_blank" rel="noopener noreferrer">
@@ -61,6 +61,22 @@ export default async function AdminHappyHourPage() {
           </Link>
         </Button>
       </div>
+    </>
+  );
+}
+
+export default function AdminHappyHourPage() {
+  return (
+    <div className="mx-auto max-w-3xl space-y-6">
+      <AdminPageHeader
+        title="Happy Hour"
+        description="Un solo formulario: visibilidad, textos, horario y tragos en promo. Guarda al final con «Guardar configuración»."
+        hint="Menú y Productos siguen definiendo el bloque 2×1 y cada trago; aquí ajustas la promo global."
+      />
+
+      <Suspense fallback={<AdminPageSkeleton />}>
+        <HappyHourPageBody />
+      </Suspense>
     </div>
   );
 }

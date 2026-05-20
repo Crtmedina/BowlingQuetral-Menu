@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { LayoutDashboard, FolderTree, Plus, UtensilsCrossed } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { AdminPageSkeleton } from "@/components/admin/AdminPageSkeleton";
 import { getDashboardCounts } from "@/lib/queries/dashboard";
-import { listAdminSections } from "@/lib/queries/menu";
+import { isDatabaseConnected, listAdminSections } from "@/lib/queries/menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,7 +14,7 @@ export const metadata = {
   title: `Panel — ${SITE.name}`,
 };
 
-export default async function AdminDashboardPage() {
+async function AdminDashboardBody() {
   const [{ categoryCount, productCount, connected }, sections] = await Promise.all([
     getDashboardCounts(),
     listAdminSections(),
@@ -21,26 +23,18 @@ export default async function AdminDashboardPage() {
   const emptyVisibleSections = sections.filter((s) => s.active && s.productCount === 0);
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8">
-      <AdminPageHeader
-        title="Resumen"
-        description={`Vista general del menú digital de ${SITE.name}.`}
-        hint={
-          !connected
-            ? "Sin conexión a la base de datos: define MONGODB_URI en .env.local para guardar productos."
-            : undefined
-        }
-      />
-
+    <>
       <div className="flex flex-wrap gap-3">
         <Button asChild variant="gold" size="lg">
-          <Link href="/admin/products">
+          <Link href="/admin/products" prefetch>
             <Plus className="h-5 w-5" aria-hidden />
             Agregar producto
           </Link>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <Link href="/admin/menu">Bloques y categorías</Link>
+          <Link href="/admin/menu" prefetch>
+            Bloques y categorías
+          </Link>
         </Button>
       </div>
 
@@ -79,7 +73,9 @@ export default async function AdminDashboardPage() {
               </Badge>
             </div>
             <CardDescription>
-              Usa Productos para cargar ítems. Ejecuta <code className="rounded bg-muted px-1">npm run seed:carta</code> para copiar el catálogo del archivo a la base.
+              Usa Productos para cargar ítems. Ejecuta{" "}
+              <code className="rounded bg-muted px-1">npm run seed:carta</code> para copiar el catálogo del
+              archivo a la base.
             </CardDescription>
           </CardContent>
         </Card>
@@ -100,6 +96,7 @@ export default async function AdminDashboardPage() {
                 <li key={s.sectionId}>
                   <Link
                     href={`/admin/products?sec=${encodeURIComponent(s.sectionId)}`}
+                    prefetch
                     className="font-medium text-gold underline-offset-4 hover:underline"
                   >
                     {s.hubLabel} · {s.label}
@@ -110,6 +107,38 @@ export default async function AdminDashboardPage() {
           </CardContent>
         </Card>
       )}
+    </>
+  );
+}
+
+export default async function AdminDashboardPage() {
+  const connected = await isDatabaseConnected();
+
+  return (
+    <div className="mx-auto max-w-7xl space-y-8">
+      <AdminPageHeader
+        title="Resumen"
+        description={`Vista general del menú digital de ${SITE.name}.`}
+        hint={
+          !connected
+            ? "Sin conexión a la base de datos: define MONGODB_URI en .env.local para guardar productos."
+            : "Gestiona productos, bloques del menú y Happy Hour desde la navegación inferior."
+        }
+      />
+
+      <Suspense
+        fallback={
+          <div className="space-y-8">
+            <div className="flex gap-3">
+              <div className="h-11 w-40 animate-pulse rounded-lg bg-muted" />
+              <div className="h-11 w-44 animate-pulse rounded-lg bg-muted/70" />
+            </div>
+            <AdminPageSkeleton />
+          </div>
+        }
+      >
+        <AdminDashboardBody />
+      </Suspense>
     </div>
   );
 }

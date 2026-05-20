@@ -12,6 +12,7 @@ import {
   LogOut,
   X,
 } from "lucide-react";
+import { AdminSessionBar } from "@/components/admin/AdminSessionBar";
 import { Button } from "@/components/ui/button";
 import { logoutAction } from "@/lib/actions/auth";
 import { SITE } from "@/lib/site";
@@ -33,12 +34,13 @@ const nav: NavItem[] = [
 ];
 
 type AdminSidebarProps = {
+  username: string;
   onNavigate?: () => void;
   showClose?: boolean;
   onClose?: () => void;
 };
 
-export function AdminSidebar({ onNavigate, showClose, onClose }: AdminSidebarProps) {
+export function AdminSidebar({ username, onNavigate, showClose, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
 
   return (
@@ -89,7 +91,8 @@ export function AdminSidebar({ onNavigate, showClose, onClose }: AdminSidebarPro
           );
         })}
       </nav>
-      <div className="mt-auto space-y-1 border-t border-white/10 p-3">
+      <div className="mt-auto space-y-2 border-t border-white/10 p-3">
+        <AdminSessionBar username={username} variant="sidebar" />
         <Link
           href="/carta"
           prefetch

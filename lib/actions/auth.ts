@@ -19,7 +19,7 @@ export async function loginAction(username: string, password: string): Promise<L
     return { ok: false, error: "Usuario o contraseña incorrectos." };
   }
 
-  await setSessionCookie();
+  await setSessionCookie(username.trim());
   return { ok: true };
 }
 

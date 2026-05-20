@@ -45,29 +45,44 @@ function constantTimeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-export async function createSessionValue(): Promise<string> {
+export type SessionPayload = {
+  exp: number;
+  v: number;
+  /** Usuario que inició sesión */
+  u?: string;
+};
+
+export async function createSessionValue(username: string): Promise<string> {
   const exp = Date.now() + MAX_AGE_SEC * 1000;
-  const payload = toBase64Url(new TextEncoder().encode(JSON.stringify({ exp, v: 1 })));
+  const u = username.trim().slice(0, 64);
+  const payload = toBase64Url(
+    new TextEncoder().encode(JSON.stringify({ exp, v: 1, u: u || undefined }))
+  );
   const sig = await hmacSign(payload);
   return `${payload}.${sig}`;
 }
 
-export async function verifySessionValue(token: string | undefined): Promise<boolean> {
-  if (!token) return false;
-  if (!process.env.AUTH_SECRET || process.env.AUTH_SECRET.length < 16) return false;
+export async function readSessionPayload(token: string | undefined): Promise<SessionPayload | null> {
+  if (!token) return null;
+  if (!process.env.AUTH_SECRET || process.env.AUTH_SECRET.length < 16) return null;
   const dot = token.lastIndexOf(".");
-  if (dot <= 0) return false;
+  if (dot <= 0) return null;
   const payload = token.slice(0, dot);
   const sig = token.slice(dot + 1);
   try {
     const expected = await hmacSign(payload);
-    if (!constantTimeEqual(sig, expected)) return false;
+    if (!constantTimeEqual(sig, expected)) return null;
     const json = new TextDecoder().decode(fromBase64Url(payload));
-    const data = JSON.parse(json) as { exp?: number };
-    return typeof data.exp === "number" && data.exp > Date.now();
+    const data = JSON.parse(json) as SessionPayload;
+    if (typeof data.exp !== "number" || data.exp <= Date.now()) return null;
+    return data;
   } catch {
-    return false;
+    return null;
   }
+}
+
+export async function verifySessionValue(token: string | undefined): Promise<boolean> {
+  return (await readSessionPayload(token)) !== null;
 }
 
 export { MAX_AGE_SEC };

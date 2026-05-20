@@ -52,6 +52,7 @@ export function LoginForm() {
             id="username"
             name="username"
             autoComplete="username"
+            autoFocus
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             disabled={isPending}

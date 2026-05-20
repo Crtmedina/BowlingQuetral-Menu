@@ -1,22 +1,15 @@
-import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import { AdminPageSkeleton } from "@/components/admin/AdminPageSkeleton";
+import { MenuStructureEditor } from "@/components/admin/MenuStructureEditor";
 import { isDatabaseConnected, listAdminSections } from "@/lib/queries/menu";
 import { getMenuLayoutForAdmin } from "@/lib/menu/menu-layout";
 import { formatHappyHourScheduleLabel } from "@/lib/menu/happy-hour-schedule";
 import { getHappyHourSettings } from "@/lib/queries/happy-hour";
 import { SITE } from "@/lib/site";
 
-const MenuStructureEditor = dynamic(
-  () =>
-    import("@/components/admin/MenuStructureEditor").then((m) => ({
-      default: m.MenuStructureEditor,
-    })),
-  { loading: () => <AdminPageSkeleton variant="menu" /> }
-);
-
 export const metadata = { title: `Menú — bloques y categorías — ${SITE.name}` };
 
-export default async function AdminMenuStructurePage() {
+async function AdminMenuContent() {
   const [connected, sections, menuLayout, happyHourSettings] = await Promise.all([
     isDatabaseConnected(),
     listAdminSections(),
@@ -32,14 +25,22 @@ export default async function AdminMenuStructurePage() {
   }));
 
   return (
+    <MenuStructureEditor
+      menuLayout={menuLayout}
+      connected={connected}
+      sectionStats={sectionStats}
+      happyHourScheduleLabel={happyHourScheduleLabel}
+      happyHourLabel={happyHourSettings.label}
+    />
+  );
+}
+
+export default function AdminMenuStructurePage() {
+  return (
     <div className="mx-auto max-w-7xl space-y-8">
-      <MenuStructureEditor
-        menuLayout={menuLayout}
-        connected={connected}
-        sectionStats={sectionStats}
-        happyHourScheduleLabel={happyHourScheduleLabel}
-        happyHourLabel={happyHourSettings.label}
-      />
+      <Suspense fallback={<AdminPageSkeleton variant="menu" />}>
+        <AdminMenuContent />
+      </Suspense>
     </div>
   );
 }

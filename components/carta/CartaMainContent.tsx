@@ -5,7 +5,6 @@ import { ChevronsDown } from "lucide-react";
 import { FONDOS_ACOMPANAMIENTOS, type CartaProduct } from "@/lib/carta";
 import { HappyHourNeonBanner } from "@/components/carta/happy-hour/HappyHourNeonBanner";
 import { HappyHourProductRow } from "@/components/carta/happy-hour/HappyHourProductRow";
-import { HappyHourStatusNotice } from "@/components/carta/happy-hour/HappyHourStatusNotice";
 import { cn } from "@/lib/utils";
 import { ProductTile } from "@/components/carta/ProductTile";
 import type { HappyHourCartaDTO } from "@/lib/menu/happy-hour-schedule";
@@ -39,7 +38,6 @@ export function CartaMainContent({
           {isHappyHour ? (
             <>
               <HappyHourNeonBanner happyHour={happyHour} />
-              <HappyHourStatusNotice happyHour={happyHour} />
               <section
                 aria-label="Tragos Happy Hour"
                 className={cn(happyHour.promoStatus !== "active" && "opacity-95")}

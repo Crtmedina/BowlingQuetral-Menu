@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ExternalLink, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { AdminActionDialogProvider } from "@/components/admin/AdminActionDialog";
+import { AdminSessionBar } from "@/components/admin/AdminSessionBar";
 import { AdminMobileNav } from "@/components/admin/AdminMobileNav";
+import { AdminRoutePrefetch } from "@/components/admin/AdminRoutePrefetch";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { adminPageTitle } from "@/components/admin/admin-page-titles";
 import { Button } from "@/components/ui/button";
@@ -13,15 +14,17 @@ import { SITE } from "@/lib/site";
 
 type AdminShellProps = {
   children: ReactNode;
+  username: string;
 };
 
-export function AdminShell({ children }: AdminShellProps) {
+export function AdminShell({ children, username }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const pageTitle = adminPageTitle(pathname);
 
   return (
     <AdminActionDialogProvider>
+      <AdminRoutePrefetch />
       <div className="admin-app-shell flex min-h-screen">
         {sidebarOpen ? (
           <div className="fixed inset-0 z-40">
@@ -33,6 +36,7 @@ export function AdminShell({ children }: AdminShellProps) {
             />
             <div className="admin-drawer-panel relative z-10 flex h-full w-[min(18rem,92vw)] flex-col shadow-2xl">
               <AdminSidebar
+                username={username}
                 onNavigate={() => setSidebarOpen(false)}
                 showClose
                 onClose={() => setSidebarOpen(false)}
@@ -57,13 +61,10 @@ export function AdminShell({ children }: AdminShellProps) {
               </Button>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-semibold text-foreground">{pageTitle}</p>
-                <p className="truncate text-xs text-muted-foreground">{SITE.name}</p>
+                <p className="truncate text-xs text-muted-foreground sm:hidden">{username}</p>
+                <p className="hidden truncate text-xs text-muted-foreground sm:block">{SITE.name}</p>
               </div>
-              <Button type="button" variant="ghost" size="icon" className="shrink-0" asChild>
-                <Link href="/carta" prefetch target="_blank" rel="noopener noreferrer" aria-label="Ver carta pública">
-                  <ExternalLink className="h-4 w-4" />
-                </Link>
-              </Button>
+              <AdminSessionBar username={username} />
             </div>
           </header>
           <main className="admin-main-content admin-main-with-bottom-nav min-w-0 flex-1 p-3 sm:p-5 md:p-6 lg:p-8">

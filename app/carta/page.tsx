@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { CartaClient } from "@/components/carta/CartaClient";
 import { getPublicMenuCatalog } from "@/lib/menu/public-catalog";
+import { applyHappyHourVisibilityToCartaLayout } from "@/lib/menu/happy-hour";
 import { getMenuLayoutForCarta } from "@/lib/menu/menu-layout";
 import { getHappyHourForCarta } from "@/lib/queries/happy-hour";
 import { SITE } from "@/lib/site";
@@ -13,11 +14,12 @@ export const metadata = {
 };
 
 export default async function CartaPage() {
-  const [{ productsBySection, sectionIntros }, menuLayout, happyHour] = await Promise.all([
+  const [{ productsBySection, sectionIntros }, menuLayoutRaw, happyHour] = await Promise.all([
     getPublicMenuCatalog(),
     getMenuLayoutForCarta(),
     getHappyHourForCarta(),
   ]);
+  const menuLayout = applyHappyHourVisibilityToCartaLayout(menuLayoutRaw, happyHour.enabled);
 
   return (
     <Suspense
